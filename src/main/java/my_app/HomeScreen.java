@@ -2,7 +2,12 @@ package my_app;
 
 import megalodonte.ComputedState;
 import megalodonte.State;
-import megalodonte.components.*;
+import megalodonte.base.components.Component;
+import megalodonte.components.Button;
+import megalodonte.components.SpacerVertical;
+import megalodonte.components.Text;
+import megalodonte.components.layout_components.Column;
+import megalodonte.components.layout_components.Row;
 import megalodonte.props.ColumnProps;
 import megalodonte.props.RowProps;
 import megalodonte.props.TextProps;
@@ -12,8 +17,8 @@ public class HomeScreen {
     ComputedState<String> counterText = ComputedState.of(()-> "Count: " + counter.get(), counter);
 
     public Component render() {
-        return new Column(new ColumnProps().paddingAll(20).bgColor("#fff"))
-                .c_child(new Text(counterText, (TextProps) new TextProps().fontSize(30)))
+        return new Column(new ColumnProps().paddingAll(20))
+                .c_child(new Text(counterText, new TextProps().fontSize(30)))
                 .c_child(new SpacerVertical(20))
                 .c_child(new Row(new RowProps().spacingOf(10))
                         .children(

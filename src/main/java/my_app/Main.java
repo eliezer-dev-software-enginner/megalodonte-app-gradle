@@ -16,14 +16,13 @@ public class Main {
         MegalodonteApp.run(context -> {
             final var stage = context.javafxStage();
             stage.setTitle("Teste");
-
             initialize(context);
-
-            MegalodonteApp.onShutdown(() -> {
+        }, event -> {
+            if(event == MegalodonteApp.Event.CloseRequest){
                 System.out.println("Clicked on X - close application");
                 hotReload.stop();
                 ListenerManager.disposeAll();
-            });
+            }
         });
     }
 

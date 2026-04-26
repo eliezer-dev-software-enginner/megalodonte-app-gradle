@@ -15,7 +15,7 @@ public class Main {
     static void main() {
         MegalodonteApp.run(context -> {
             final var stage = context.javafxStage();
-            stage.setTitle("Teste");
+            stage.setTitle("My App");
             initialize(context);
         }, event -> {
             if(event == MegalodonteApp.Event.CloseRequest){

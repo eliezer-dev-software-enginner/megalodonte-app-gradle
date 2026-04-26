@@ -23,7 +23,7 @@ public class HomeScreen {
                 .c_child(new Row(new RowProps().spacingOf(10))
                         .children(
                                 new Button("Decrement").onClick(()-> counter.set(counter.get() - 1)),
-                                new Button("Incrementar").onClick(()-> counter.set(counter.get() + 1))
+                                new Button("Increment").onClick(()-> counter.set(counter.get() + 1))
                         )
                 );
     }

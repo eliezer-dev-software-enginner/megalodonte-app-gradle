@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class Main {
     static HotReload hotReload;
-    static boolean devMode = System.getenv("DEV_MODE") != null && System.getenv("DEV_MODE").equals("true");
+    static boolean devMode = System.getenv("DEV_MODE").equals("true");
 
     static void main() {
         MegalodonteApp.run(context -> {
@@ -26,6 +26,7 @@ public class Main {
         });
     }
 
+    //mandatory for hotreload
     public static void initialize(Context context) {
         context.useView(new HomeScreen().render());
 

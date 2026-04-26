@@ -47,4 +47,4 @@ java_fx_modules
 build.gradle-funcionando_gera_fatjar.kts-draft
 *.txt
 *.db
-img.png
+setting_dev_mode.png

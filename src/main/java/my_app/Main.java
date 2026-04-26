@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class Main {
     static HotReload hotReload;
-    static boolean devMode = System.getenv("DEV_MODE").equals("true");
+    static boolean devMode = "true".equals(System.getenv("DEV_MODE"));
 
     static void main() {
         MegalodonteApp.run(context -> {

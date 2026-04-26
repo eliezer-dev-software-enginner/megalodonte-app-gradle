@@ -130,6 +130,66 @@ tasks.register<Exec>("createFastExeWindows") {
     commandLine("pwsh", "./scripts/windows/create-fast-exe-using-gradlew.ps1")
 }
 
+val libsDir = File(projectDir.parentFile, "megalodonte-libs")
+
+tasks.register("compileMegalodonteDeps") {
+    group = "megalodonte"
+    description = "Publish all megalodonte libraries on mavenLocal"
+
+    doLast {
+        val libsDir = File(projectDir.parentFile, "megalodonte-libs")
+
+        if (!libsDir.exists()) {
+            error("Folder megalodonte-libs not founded at: ${libsDir.absolutePath}")
+        }
+
+        val libs = listOf(
+            "megalodonte-base",
+            "megalodonte-reactivity",
+            "megalodonte-theme",
+            "megalodonte-components",
+            "megalodonte-router"
+        )
+
+        val isWindows = System.getProperty("os.name").lowercase().contains("win")
+        val gradlew = if (isWindows) "gradlew.bat" else "./gradlew"
+
+        libs.forEach { libName ->
+            val libDir = File(libsDir, libName)
+
+            if (!libDir.exists()) {
+                error("Folder not found: ${libDir.absolutePath}")
+            }
+
+            println("📦 Publishing $libName...")
+
+            val process = ProcessBuilder(gradlew, "publishToMavenLocal")
+                .directory(libDir)
+                .redirectErrorStream(true) // junta stdout e stderr num stream só
+                .start()
+
+            // consome o output em uma thread separada para não travar o buffer
+            val outputThread = Thread {
+                process.inputStream.bufferedReader().lines().forEach { line ->
+                    println("  [$libName] $line")
+                }
+            }
+            outputThread.start()
+
+            val result = process.waitFor()
+            outputThread.join() // espera a thread de output terminar
+
+            if (result != 0) {
+                error("Failed to publish $libName (exit code $result)")
+            }
+
+            println("✅ $libName published successfully")
+        }
+
+        println("\n🎉 All dependencies have been published!")
+    }
+}
+
 // Configuração de Publicação (mantida)
 publishing {
     publications {

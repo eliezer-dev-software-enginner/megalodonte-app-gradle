@@ -22,8 +22,8 @@ megalodonte:megalodonte-theme:1.0.0-beta
 
 ## Get Started
 
-1. Download the project [clicking here](https://github.com/eliezer-dev-software-enginner/megalodonte-app-gradle/releases/download/app/megalodonte-startup.zip)
-2. Extract the zip and open the **`megalodonte-app-gradle`** folder in your favorite IDE
+1. Download the project [clicking here](https://github.com/eliezer-dev-software-enginner/megalodonte-app/releases/download/v0.0.2/megalodonte-startup.zip)
+2. Extract the zip and open the **`megalodonte-app`** folder in your favorite IDE
 3. Go to **Gradle > Tasks > megalodonte** and run **`compileMegalodonteDeps`** to publish all dependencies locally
 4. Then just run the project with **`./gradlew run`** or via your IDE's run button
 

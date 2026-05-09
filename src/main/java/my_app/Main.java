@@ -28,20 +28,19 @@ public class Main {
 
     //mandatory for hotreload
     public static void initialize(Context context) {
-        context.useView(new HomeScreen().render());
+        context.useView(HomeScreen.class);
 
         if (devMode) {
            hotReload = new HotReload()
                 .sourcePath("src/main/java")
                 .classesPath("build/classes/java/main")
                 .resourcesPath("src/main/resources")
-                .implementationClassName("my_app.hotreload.UIReloaderImpl")
+                   .implementationClassName("my_app.hotreload.Reloader")
                 .screenClassName("my_app.HomeScreen")
                 .reloadContext(context)
                 .classesToExclude(Set.of(
                     "my_app.Main",
                     "my_app.hotreload.Reloader",
-                    "my_app.hotreload.UIReloaderImpl",
                     "my_app.hotreload.HotReload",
                     "my_app.hotreload.HotReloadClassLoader"
                 ));

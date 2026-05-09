@@ -1,5 +1,7 @@
 package my_app.hotreload;
 
+import megalodonte.application.Context;
+
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 import java.io.IOException;
@@ -9,7 +11,6 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,7 +22,7 @@ public class HotReload {
     private Path classesPath;
     private String implementationClassName;
     private String screenClassName;
-    private Object reloadContext;
+    private Context reloadContext;
     private Set<String> classesToExclude = new HashSet<>();
 
     private volatile boolean running = true;
@@ -57,7 +58,7 @@ public class HotReload {
         return this;
     }
 
-    public HotReload reloadContext(Object reloadContext) {
+    public HotReload reloadContext(Context reloadContext) {
         this.reloadContext = reloadContext;
         return this;
     }
@@ -275,7 +276,7 @@ public class HotReload {
         runLaterMethod.invoke(null, (Runnable) () -> {
             try {
                 // Passa o contexto, o nome da screen class e o classesPath
-                Method reloadWithScreen = reloaderClass.getMethod("reload", Object.class, String.class, String.class);
+                Method reloadWithScreen = reloaderClass.getMethod("reload", Context.class, String.class, String.class);
                 reloadWithScreen.invoke(reloader, reloadContext, screenClassName, classesPath.toString());
                 System.out.println("[HotReload] Reload finished.");
             } catch (Exception e) {

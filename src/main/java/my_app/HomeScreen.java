@@ -3,6 +3,7 @@ package my_app;
 import megalodonte.ComputedState;
 import megalodonte.State;
 import megalodonte.base.components.Component;
+import megalodonte.base.components.ScreenComponent;
 import megalodonte.components.Button;
 import megalodonte.components.SpacerVertical;
 import megalodonte.components.Text;
@@ -12,9 +13,14 @@ import megalodonte.props.ColumnProps;
 import megalodonte.props.RowProps;
 import megalodonte.props.TextProps;
 
-public class HomeScreen {
+public class HomeScreen implements ScreenComponent {
     State<Integer> counter = State.of(0);
     ComputedState<String> counterText = ComputedState.of(()-> "Count: " + counter.get(), counter);
+
+    @Override
+    public void onMount() {
+        System.out.println("Screen mounted");
+    }
 
     public Component render() {
         return new Column(new ColumnProps().paddingAll(20))
